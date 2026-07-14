@@ -69,6 +69,16 @@ def remove_task(index):
         print("No such task.")
 
 
+def clear_tasks():
+    """Delete all tasks from tasks.json after user confirmation."""
+    confirm = input("Are you sure you want to delete all tasks? Type 'yes' to confirm: ")
+    if confirm.strip().lower() == "yes":
+        save_tasks([])
+        print("All tasks cleared successfully.")
+    else:
+        print("Action canceled. Tasks preserved.")
+
+
 def sort_by_priority(tasks):
     """Sort tasks so 'high' priority tasks come first, then 'normal', then 'low'.
 
@@ -80,7 +90,7 @@ def sort_by_priority(tasks):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: tasklite <add|list|done|remove> [args]")
+        print("Usage: tasklite <add|list|done|remove|clear> [args]")
         return
 
     command = sys.argv[1]
@@ -93,6 +103,8 @@ def main():
         mark_done(int(sys.argv[2]))
     elif command == "remove":
         remove_task(int(sys.argv[2]))
+    elif command == "clear":
+        clear_tasks()
     else:
         print(f"Unknown command: {command}")
 
